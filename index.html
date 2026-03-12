@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmic Player</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0b0b0f;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+h1{
+font-weight:600;
+}
+
+#player{
+margin-top:20px;
+}
+
+input{
+width:80%;
+padding:12px;
+border-radius:10px;
+border:none;
+margin-top:20px;
+}
+
+button{
+padding:10px 16px;
+margin:6px;
+border:none;
+border-radius:8px;
+background:#1db954;
+color:white;
+font-weight:bold;
+}
+
+.song{
+padding:10px;
+border-bottom:1px solid #222;
+cursor:pointer;
+}
+
+.song:hover{
+background:#1a1a1a;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎧 Cosmic Player</h1>
+
+<input id="songInput" placeholder="Type song name...">
+<button onclick="addSong()">Add Song</button>
+
+<div id="playlist"></div>
+
+<div id="player"></div>
+
+<script>
+
+let songs=[]
+let currentIndex=0
+
+function addSong(){
+
+let name=document.getElementById("songInput").value
+
+if(name==="") return
+
+songs.push(name)
+
+document.getElementById("songInput").value=""
+
+renderList()
+
+}
+
+function renderList(){
+
+let list=""
+
+songs.forEach((song,i)=>{
+
+list+=`<div class="song" onclick="playSong(${i})">${song}</div>`
+
+})
+
+document.getElementById("playlist").innerHTML=list
+
+}
+
+function playSong(i){
+
+currentIndex=i
+
+let song=songs[i]
+
+let query=encodeURIComponent(song)
+
+document.getElementById("player").innerHTML=
+
+`<iframe width="100%" height="200"
+src="https://www.youtube.com/embed?listType=search&list=${query}&autoplay=1"
+frameborder="0" allow="autoplay"></iframe>`
+
+}
+
+</script>
+
+</body>
+</html>
